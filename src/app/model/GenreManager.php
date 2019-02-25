@@ -26,9 +26,9 @@ class GenreManager
         return $this->getGenres()->get($id);
     }
 
-    public function createGenre($name)
+    public function createGenre($data)
     {
-        $this->getGenres()->insert(['name' => $name]);
+        $this->getGenres()->insert($data);
     }
 
     public function updateGenre($id, $data)

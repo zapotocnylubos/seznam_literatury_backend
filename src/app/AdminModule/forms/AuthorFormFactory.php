@@ -39,7 +39,7 @@ final class AuthorFormFactory
 
         $form->onSuccess[] = function (Form $form, $values) use ($onSuccess) {
             try {
-                $this->manager->createAuthor($values->full_name);
+                $this->manager->createAuthor($values);
             } catch (UniqueConstraintViolationException $e) {
                 $form->controls['full_name']->addError('Autor s tímto jménem již existuje.');
                 return;

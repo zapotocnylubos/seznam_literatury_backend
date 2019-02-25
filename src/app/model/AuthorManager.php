@@ -26,9 +26,9 @@ class AuthorManager
         return $this->getAuthors()->get($id);
     }
 
-    public function createAuthor($full_name)
+    public function createAuthor($data)
     {
-        $this->getAuthors()->insert(['full_name' => $full_name]);
+        $this->getAuthors()->insert($data);
     }
 
     public function updateAuthor($id, $data)

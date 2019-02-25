@@ -20,7 +20,9 @@ services:
 	- App\AdminModule\Forms\SignInFormFactory
 	- App\AdminModule\Forms\GenreFormFactory
 	- App\AdminModule\Forms\AuthorFormFactory
+	- App\AdminModule\Forms\LiteratureSetFormFactory
 	- App\FrontModule\Forms\FormFactory
 	- App\Models\GenreManager
 	- App\Models\AuthorManager
+	- App\Models\LiteratureManager
 	router: App\RouterFactory::createRouter

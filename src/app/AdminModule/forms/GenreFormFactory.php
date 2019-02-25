@@ -39,7 +39,7 @@ final class GenreFormFactory
 
         $form->onSuccess[] = function (Form $form, $values) use ($onSuccess) {
             try {
-                $this->manager->createGenre($values->name);
+                $this->manager->createGenre($values);
             } catch (UniqueConstraintViolationException $e) {
                 $form->controls['name']->addError('Žánr s tímto jménem již existuje.');
                 return;
