@@ -15,8 +15,16 @@
 </head>
 
 <body>
+
+{include './components/navbar.latte'}
+
 <div class="container">
-    <div n:foreach="$flashes as $flash" n:class="flash, $flash->type">{$flash->message}</div>
+    <div n:foreach="$flashes as $flash" class="alert alert-{$flash->type} my-3" role="alert">
+        {$flash->message}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
 
     {include content}
 </div>

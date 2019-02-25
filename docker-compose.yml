@@ -6,3 +6,15 @@ services:
       - ./src:/var/www/html/
     ports:
       - 7000:80
+    depends_on:
+      - db
+    links:
+      - db
+
+  db:
+    image: mysql:5.5
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: heslo
+    ports:
+      - 3307:3306

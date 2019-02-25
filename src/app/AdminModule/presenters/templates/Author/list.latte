@@ -1,0 +1,18 @@
+{block content}
+
+<table class="table">
+    <thead>
+    <tr>
+        <th scope="col">Jméno autora</th>
+        <th scope="col">Akce</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr n:foreach="$authors as $author">
+        <td>{$author->full_name}</td>
+        <td>
+            <a n:href="update $author->id">Upravit</a> | <a n:href="delete! $author->id">Smazat</a>
+        </td>
+    </tr>
+    </tbody>
+</table>

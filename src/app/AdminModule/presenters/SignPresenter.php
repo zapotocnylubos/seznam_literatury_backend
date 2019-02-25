@@ -8,32 +8,38 @@ use Nette\Application\UI\Form;
 
 final class SignPresenter extends BasePresenter
 {
-	/** @persistent */
-	public $backlink = '';
+    /**
+     * @var Forms\SignInFormFactory
+     */
+    private $signInFactory;
 
-	/** @var Forms\SignInFormFactory */
-	private $signInFactory;
+    public function __construct(Forms\SignInFormFactory $signInFactory)
+    {
+        parent::__construct();
+        $this->signInFactory = $signInFactory;
+    }
 
-	public function __construct(Forms\SignInFormFactory $signInFactory)
-	{
-		$this->signInFactory = $signInFactory;
-	}
+    public function actionIn()
+    {
+        if ($this->user->loggedIn) {
+            $this->redirect('Homepage:');
+        }
+    }
 
 
-	/**
-	 * Sign-in form factory.
-	 * @return Form
-	 */
-	protected function createComponentSignInForm()
-	{
-		return $this->signInFactory->create(function () {
-			$this->restoreRequest($this->backlink);
-			$this->redirect('Homepage:');
-		});
-	}
+    /**
+     * Sign-in form factory.
+     * @return Form
+     */
+    protected function createComponentSignInForm()
+    {
+        return $this->signInFactory->create(function () {
+            $this->redirect('Homepage:');
+        });
+    }
 
-	public function actionOut()
-	{
-		$this->getUser()->logout();
-	}
+    public function actionOut()
+    {
+        $this->user->logout();
+    }
 }

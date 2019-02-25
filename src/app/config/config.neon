@@ -15,17 +15,12 @@ session:
 	expiration: 14 days
 
 
-database:
-	dsn: 'mysql:host=127.0.0.1;dbname=test'
-	user:
-	password:
-	options:
-		lazy: yes
-
-
 services:
-	- App\Model\UserManager
 	- App\AdminModule\Forms\FormFactory
 	- App\AdminModule\Forms\SignInFormFactory
+	- App\AdminModule\Forms\GenreFormFactory
+	- App\AdminModule\Forms\AuthorFormFactory
 	- App\FrontModule\Forms\FormFactory
+	- App\Models\GenreManager
+	- App\Models\AuthorManager
 	router: App\RouterFactory::createRouter
