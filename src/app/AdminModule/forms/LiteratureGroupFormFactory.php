@@ -2,7 +2,6 @@
 
 namespace App\AdminModule\Forms;
 
-use App\Models\AuthorManager;
 use App\Models\LiteratureGroupManager;
 use App\Models\LiteratureSetManager;
 use Nette;

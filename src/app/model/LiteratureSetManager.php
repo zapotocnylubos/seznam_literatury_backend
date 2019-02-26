@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use Nette;
-use Tracy\Debugger;
 
 class LiteratureSetManager
 {

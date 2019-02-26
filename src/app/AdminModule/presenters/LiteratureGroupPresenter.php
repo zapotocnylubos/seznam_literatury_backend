@@ -52,7 +52,7 @@ final class LiteratureGroupPresenter extends BasePresenter
     {
         return $this->literatureGroupFactory->create(function ($literature_set_id) {
             $this->flashMessage('Literární skupina byla vytvořena.');
-            $this->redirect('LiteratureGroup:list',  ['literatureSetId' => $literature_set_id]);
+            $this->redirect('LiteratureGroup:list', ['literatureSetId' => $literature_set_id]);
         });
     }
 
