@@ -1,10 +1,13 @@
 {block content}
 
+<h1 n:block=title>Seznam literních setů</h1>
+
 <table class="table">
     <thead>
     <tr>
         <th scope="col">Ročník</th>
         <th scope="col">Max. knih od stejného autora</th>
+        <th scope="col">Seznam literárních skupin</th>
         <th scope="col">Akce</th>
     </tr>
     </thead>
@@ -12,6 +15,7 @@
     <tr n:foreach="$literatureSets as $literatureSet">
         <td>{$literatureSet->period}</td>
         <td>{$literatureSet->author_max_count}</td>
+        <td><a n:href="LiteratureGroup:list literatureSetId => $literatureSet->id">Skupiny</a></td>
         <td>
             <a n:href="update $literatureSet->id">Upravit</a> | <a n:href="delete! $literatureSet->id">Smazat</a>
         </td>
