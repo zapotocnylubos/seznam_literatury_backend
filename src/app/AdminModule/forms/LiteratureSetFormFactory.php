@@ -45,7 +45,7 @@ final class LiteratureSetFormFactory
             try {
                 $this->setManager->createLiteratureSet($values);
             } catch (UniqueConstraintViolationException $e) {
-                $form->controls['period']->addError('Set literatury s tímto ročníkem již existuje.');
+                $form['period']->addError('Set literatury s tímto ročníkem již existuje.');
                 return;
             }
             $onSuccess();
@@ -76,7 +76,7 @@ final class LiteratureSetFormFactory
             try {
                 $this->setManager->updateLiteratureSet($values->id, $values);
             } catch (UniqueConstraintViolationException $e) {
-                $form->controls['period']->addError('Set literatury s tímto ročníkem již existuje.');
+                $form['period']->addError('Set literatury s tímto ročníkem již existuje.');
                 return;
             }
             $onSuccess();

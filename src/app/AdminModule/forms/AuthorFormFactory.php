@@ -41,7 +41,7 @@ final class AuthorFormFactory
             try {
                 $this->manager->createAuthor($values);
             } catch (UniqueConstraintViolationException $e) {
-                $form->controls['full_name']->addError('Autor s tímto jménem již existuje.');
+                $form['full_name']->addError('Autor s tímto jménem již existuje.');
                 return;
             }
             $onSuccess();
@@ -69,7 +69,7 @@ final class AuthorFormFactory
             try {
                 $this->manager->updateAuthor($values->id, $values);
             } catch (UniqueConstraintViolationException $e) {
-                $form->controls['full_name']->addError('Autor s tímto jménem již existuje.');
+                $form['full_name']->addError('Autor s tímto jménem již existuje.');
                 return;
             }
             $onSuccess();

@@ -59,7 +59,7 @@ final class BookFormFactory
             try {
                 $this->bookManager->createBook($values);
             } catch (UniqueConstraintViolationException $e) {
-                $form->controls['name']->addError('Kniha s tímto názvem již existuje.');
+                $form['name']->addError('Kniha s tímto názvem již existuje.');
                 return;
             }
             $onSuccess();
@@ -95,7 +95,7 @@ final class BookFormFactory
             try {
                 $this->bookManager->updateBook($values->id, $values);
             } catch (UniqueConstraintViolationException $e) {
-                $form->controls['name']->addError('Kniha s tímto názvem již existuje.');
+                $form['name']->addError('Kniha s tímto názvem již existuje.');
                 return;
             }
             $onSuccess();

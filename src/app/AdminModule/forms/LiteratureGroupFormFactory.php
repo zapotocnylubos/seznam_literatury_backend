@@ -56,10 +56,10 @@ final class LiteratureGroupFormFactory
             try {
                 $this->groupManager->createLiteratureGroup($values);
             } catch (UniqueConstraintViolationException $e) {
-                $form->controls['title']->addError('Skupina literatury s tímto názevm v tomto ročníku již existuje.');
+                $form['title']->addError('Skupina literatury s tímto názevm v tomto ročníku již existuje.');
                 return;
             }
-            $onSuccess();
+            $onSuccess($values->literature_set_id);
         };
 
         return $form;
@@ -92,10 +92,10 @@ final class LiteratureGroupFormFactory
             try {
                 $this->groupManager->updateLiteratureGroup($values->id, $values);
             } catch (UniqueConstraintViolationException $e) {
-                $form->controls['title']->addError('Skupina literatury s tímto názevm v tomto ročníku již existuje.');
+                $form['title']->addError('Skupina literatury s tímto názevm v tomto ročníku již existuje.');
                 return;
             }
-            $onSuccess();
+            $onSuccess($values->literature_set_id);
         };
 
         return $form;

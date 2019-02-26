@@ -41,7 +41,7 @@ final class GenreFormFactory
             try {
                 $this->manager->createGenre($values);
             } catch (UniqueConstraintViolationException $e) {
-                $form->controls['name']->addError('Žánr s tímto jménem již existuje.');
+                $form['name']->addError('Žánr s tímto jménem již existuje.');
                 return;
             }
             $onSuccess();
@@ -69,7 +69,7 @@ final class GenreFormFactory
             try {
                 $this->manager->updateGenre($values->id, $values);
             } catch (UniqueConstraintViolationException $e) {
-                $form->controls['name']->addError('Žánr s tímto jménem již existuje.');
+                $form['name']->addError('Žánr s tímto jménem již existuje.');
                 return;
             }
             $onSuccess();
