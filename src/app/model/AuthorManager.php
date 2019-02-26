@@ -21,6 +21,15 @@ class AuthorManager
         return $this->database->table('authors');
     }
 
+    public function getAuthorValuePairs()
+    {
+        $valuePairs = [];
+        foreach ($this->getAuthors() as $author) {
+            $valuePairs[$author->id] = $author->full_name;
+        }
+        return $valuePairs;
+    }
+
     public function getAuthor($id)
     {
         return $this->getAuthors()->get($id);

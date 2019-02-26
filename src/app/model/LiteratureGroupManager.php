@@ -21,6 +21,15 @@ class LiteratureGroupManager
         return $this->database->table('literature_groups');
     }
 
+    public function getLiteratureGroupValuePairs()
+    {
+        $valuePairs = [];
+        foreach ($this->getLiteratureGroups() as $literatureGroup) {
+            $valuePairs[$literatureGroup->id] = $literatureGroup->title;
+        }
+        return $valuePairs;
+    }
+
     public function getLiteratureGroup($id)
     {
         return $this->getLiteratureGroups()->get($id);

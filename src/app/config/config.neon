@@ -22,9 +22,11 @@ services:
 	- App\AdminModule\Forms\AuthorFormFactory
 	- App\AdminModule\Forms\LiteratureSetFormFactory
 	- App\AdminModule\Forms\LiteratureGroupFormFactory
+	- App\AdminModule\Forms\BookFormFactory
 	- App\FrontModule\Forms\FormFactory
 	- App\Models\GenreManager
 	- App\Models\AuthorManager
 	- App\Models\LiteratureSetManager
 	- App\Models\LiteratureGroupManager
+	- App\Models\BookManager
 	router: App\RouterFactory::createRouter

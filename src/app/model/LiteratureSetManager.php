@@ -24,11 +24,11 @@ class LiteratureSetManager
 
     public function getLiteratureSetValuePairs()
     {
-        $literatureSetsValues = [];
+        $valuePairs = [];
         foreach ($this->getLiteratureSets() as $literatureSet) {
-            $literatureSetsValues[$literatureSet->id] = $literatureSet->period;
+            $valuePairs[$literatureSet->id] = $literatureSet->period;
         }
-        return $literatureSetsValues;
+        return $valuePairs;
     }
 
     public function getLiteratureSet($id)
