@@ -45,11 +45,11 @@ final class BookFormFactory
         $form->addText('title', 'Název knihy:')
             ->setRequired('Zadejte prosím název knihy.');
 
-        $options = ['' => '------'];
+        $options = [null => '------'];
         $options += $this->authorManager->getAuthorValuePairs();
         $form->addSelect('author_id', 'Autor:', $options);
 
-        $options = ['' => '------'];
+        $options = [null => '------'];
         $options += $this->genreManager->getGenreValuePairs();
         $form->addSelect('genre_id', 'Žánr:', $options);
 
@@ -81,11 +81,11 @@ final class BookFormFactory
         $form->addText('title', 'Název knihy:')
             ->setRequired('Zadejte prosím název knihy.');
 
-        $options = ['' => '------'];
+        $options = [null => '------'];
         $options += $this->authorManager->getAuthorValuePairs();
         $form->addSelect('author_id', 'Autor:', $options);
 
-        $options = ['' => '------'];
+        $options = [null => '------'];
         $options += $this->genreManager->getGenreValuePairs();
         $form->addSelect('genre_id', 'Žánr:', $options);
 

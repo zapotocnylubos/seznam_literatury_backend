@@ -92,7 +92,7 @@ final class LiteratureSetFormFactory
     {
         $form = $this->factory->create();
 
-        $options = ['' => '------'];
+        $options = [null => '------'];
         $options += $this->setManager->getLiteratureSetValuePairs();
 
         $form->addSelect('literature_set_id', 'Literární set:', $options);

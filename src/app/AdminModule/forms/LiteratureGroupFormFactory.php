@@ -38,7 +38,7 @@ final class LiteratureGroupFormFactory
     {
         $form = $this->factory->create();
 
-        $options = ['' => '------'];
+        $options = [null => '------'];
         $options += $this->setManager->getLiteratureSetValuePairs();
 
         $form->addSelect('literature_set_id', 'Literární set:', $options);
@@ -74,7 +74,7 @@ final class LiteratureGroupFormFactory
 
         $form->addHidden('id');
 
-        $options = ['' => '------'];
+        $options = [null => '------'];
         $options += $this->setManager->getLiteratureSetValuePairs();
 
         $form->addSelect('literature_set_id', 'Literární set:', $options);

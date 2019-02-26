@@ -4,6 +4,7 @@ namespace App\AdminModule\Presenters;
 
 
 use App\AdminModule\Forms\LiteratureGroupFormFactory;
+use App\Helpers\OrderHelper;
 use App\Models\LiteratureGroupManager;
 use App\Models\LiteratureSetManager;
 
@@ -34,11 +35,51 @@ final class LiteratureGroupPresenter extends BasePresenter
 
     public function renderList($literatureSetId)
     {
-        $this->template->literatureGroups = $this->literatureGroupManager
-            ->getLiteratureGroups()
-            ->where('literature_set_id', $literatureSetId);
+        $this->template->literatureSet = $literatureSet = $this->literatureSetManager->getLiteratureSet($literatureSetId);
 
-        $this->template->literatureSet = $this->literatureSetManager->getLiteratureSet($literatureSetId);
+        $this->template->literatureGroups = $literatureSet->related('literature_groups')
+            ->order('sort_order', 'DESC');
+    }
+
+    public function handleReorderDown($id)
+    {
+        $currentLiteratureGroup = $this->literatureGroupManager->getLiteratureGroup($id);
+
+        $literatureGroups = $this->literatureGroupManager->getLiteratureGroups()
+            ->where('literature_set_id', $currentLiteratureGroup->literature_set_id)
+            ->order('sort_order', 'DESC');
+
+
+        $ids = [];
+        foreach($literatureGroups as $id => $group) {
+            $ids[] = $id;
+        }
+
+        $ids = OrderHelper::ChangeOrderDown($ids, $currentLiteratureGroup->id);
+
+        $this->literatureGroupManager->reindexGroupsOrder($ids);
+
+        $this->redirect('this');
+    }
+
+    public function handleReorderUp($id)
+    {
+        $currentLiteratureGroup = $this->literatureGroupManager->getLiteratureGroup($id);
+
+        $literatureGroups = $this->literatureGroupManager->getLiteratureGroups()
+            ->where('literature_set_id', $currentLiteratureGroup->literature_set_id)
+            ->order('sort_order', 'DESC');
+
+        $ids = [];
+        foreach($literatureGroups as $id => $group) {
+            $ids[] = $id;
+        }
+
+        $ids = OrderHelper::ChangeOrderUp($ids, $currentLiteratureGroup->id);
+
+        $this->literatureGroupManager->reindexGroupsOrder($ids);
+
+        $this->redirect('this');
     }
 
     public function handleDelete($id)

@@ -23,11 +23,7 @@ class LiteratureSetManager
 
     public function getLiteratureSetValuePairs()
     {
-        $valuePairs = [];
-        foreach ($this->getLiteratureSets() as $literatureSet) {
-            $valuePairs[$literatureSet->id] = $literatureSet->period;
-        }
-        return $valuePairs;
+        return $this->getLiteratureSets()->fetchPairs('id', 'period');
     }
 
     public function getLiteratureSet($id)
@@ -61,6 +57,8 @@ class LiteratureSetManager
             $currentlyActive->update(['is_active' => 0]);
         }
 
-        $this->getLiteratureSet($id)->update(['is_active' => 1]);
+        if ($futureActive = $this->getLiteratureSet($id)) {
+            $futureActive->update(['is_active' => 1]);
+        }
     }
 }

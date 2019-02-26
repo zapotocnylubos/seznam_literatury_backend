@@ -23,11 +23,14 @@ class LiteratureGroupManager
 
     public function getLiteratureGroupValuePairs()
     {
-        $valuePairs = [];
-        foreach ($this->getLiteratureGroups() as $literatureGroup) {
-            $valuePairs[$literatureGroup->id] = $literatureGroup->title;
+        return $this->getLiteratureGroups()->fetchPairs('id', 'title');
+    }
+
+    public function reindexGroupsOrder($ids) {
+        for ($i = 0; $i < count($ids) ; $i++) {
+            $this->getLiteratureGroup($ids[$i])
+                ->update(['sort_order' => $i]);
         }
-        return $valuePairs;
     }
 
     public function getLiteratureGroup($id)

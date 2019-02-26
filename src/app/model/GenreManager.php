@@ -23,11 +23,7 @@ class GenreManager
 
     public function getGenreValuePairs()
     {
-        $valuePairs = [];
-        foreach ($this->getGenres() as $genre) {
-            $valuePairs[$genre->id] = $genre->name;
-        }
-        return $valuePairs;
+        return $this->getGenres()->fetchPairs('id', 'name');
     }
 
     public function getGenre($id)

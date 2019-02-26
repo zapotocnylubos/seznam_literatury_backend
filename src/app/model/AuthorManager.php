@@ -23,11 +23,7 @@ class AuthorManager
 
     public function getAuthorValuePairs()
     {
-        $valuePairs = [];
-        foreach ($this->getAuthors() as $author) {
-            $valuePairs[$author->id] = $author->full_name;
-        }
-        return $valuePairs;
+        return $this->getAuthors()->fetchPairs('id', 'full_name');
     }
 
     public function getAuthor($id)

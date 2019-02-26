@@ -1,6 +1,10 @@
 {block content}
 
-Aktivni set je: {$activeLiteratureSet->period}
+{if $activeLiteratureSet}
+    <h4>Aktivni set je: {$activeLiteratureSet->period}</h4>
+{else}
+    <h4 style="color: red">Není nastaven aktivní set</h4>
+{/if}
 
 <a n:href="activeUpdate">Změnit aktivní literární set</a>
 {dump $activeLiteratureSet}
