@@ -27,21 +27,18 @@ final class LiteratureGroupPresenter extends BasePresenter
         $this->literatureSetManager = $literatureSetManager;
     }
 
+    public function actionCreate($literatureSetId)
+    {
+        $this['literatureGroupCreateForm']->setDefaults(['literature_set_id' => $literatureSetId]);
+    }
+
     public function actionUpdate($id)
     {
         $literatureSet = $this->literatureGroupManager->getLiteratureGroup($id);
         $this['literatureGroupUpdateForm']->setDefaults($literatureSet);
     }
 
-    public function renderList($literatureSetId)
-    {
-        $this->template->literatureSet = $literatureSet = $this->literatureSetManager->getLiteratureSet($literatureSetId);
-
-        $this->template->literatureGroups = $literatureSet->related('literature_groups')
-            ->order('sort_order', 'DESC');
-    }
-
-    public function handleReorderDown($id)
+    public function actionReorderDown($id)
     {
         $currentLiteratureGroup = $this->literatureGroupManager->getLiteratureGroup($id);
 
@@ -51,7 +48,7 @@ final class LiteratureGroupPresenter extends BasePresenter
 
 
         $ids = [];
-        foreach($literatureGroups as $id => $group) {
+        foreach ($literatureGroups as $id => $group) {
             $ids[] = $id;
         }
 
@@ -59,10 +56,10 @@ final class LiteratureGroupPresenter extends BasePresenter
 
         $this->literatureGroupManager->reindexGroupsOrder($ids);
 
-        $this->redirect('this');
+        $this->redirect('LiteratureSet:detail', $currentLiteratureGroup->literature_set_id);
     }
 
-    public function handleReorderUp($id)
+    public function actionReorderUp($id)
     {
         $currentLiteratureGroup = $this->literatureGroupManager->getLiteratureGroup($id);
 
@@ -71,7 +68,7 @@ final class LiteratureGroupPresenter extends BasePresenter
             ->order('sort_order', 'DESC');
 
         $ids = [];
-        foreach($literatureGroups as $id => $group) {
+        foreach ($literatureGroups as $id => $group) {
             $ids[] = $id;
         }
 
@@ -79,7 +76,7 @@ final class LiteratureGroupPresenter extends BasePresenter
 
         $this->literatureGroupManager->reindexGroupsOrder($ids);
 
-        $this->redirect('this');
+        $this->redirect('LiteratureSet:detail', $currentLiteratureGroup->literature_set_id);
     }
 
     public function handleDelete($id)
@@ -93,7 +90,7 @@ final class LiteratureGroupPresenter extends BasePresenter
     {
         return $this->literatureGroupFactory->create(function ($literature_set_id) {
             $this->flashMessage('Literární skupina byla vytvořena.');
-            $this->redirect('LiteratureGroup:list', ['literatureSetId' => $literature_set_id]);
+            $this->redirect('LiteratureSet:detail', $literature_set_id);
         });
     }
 
@@ -101,7 +98,7 @@ final class LiteratureGroupPresenter extends BasePresenter
     {
         return $this->literatureGroupFactory->update(function ($literature_set_id) {
             $this->flashMessage('Literární skupina byla upravena.');
-            $this->redirect('LiteratureGroup:list', ['literatureSetId' => $literature_set_id]);
+            $this->redirect('LiteratureSet:detail', $literature_set_id);
         });
     }
 }

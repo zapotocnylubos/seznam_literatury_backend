@@ -21,6 +21,11 @@ class BookManager
         return $this->database->table('books');
     }
 
+    public function getBookValuePairs()
+    {
+        return $this->getBooks()->fetchPairs('id', 'title');
+    }
+
     public function getBook($id)
     {
         return $this->getBooks()->get($id);
@@ -39,5 +44,11 @@ class BookManager
     public function deleteBook($id)
     {
         $this->getBook($id)->delete();
+    }
+
+    public function assignToGroup($data)
+    {
+        $this->database->table('literature_groups_has_books')
+            ->insert($data);
     }
 }

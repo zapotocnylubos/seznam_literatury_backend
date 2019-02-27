@@ -15,7 +15,7 @@
     <tr n:foreach="$literatureSets as $literatureSet">
         <td>{$literatureSet->period}</td>
         <td>{$literatureSet->author_max_count}</td>
-        <td><a n:href="LiteratureGroup:list literatureSetId => $literatureSet->id">Skupiny</a></td>
+        <td><a n:href="detail $literatureSet->id">Detail</a></td>
         <td>
             <a n:href="update $literatureSet->id">Upravit</a> | <a n:href="delete! $literatureSet->id">Smazat</a>
         </td>

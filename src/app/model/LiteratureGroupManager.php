@@ -21,7 +21,7 @@ class LiteratureGroupManager
         return $this->database->table('literature_groups');
     }
 
-    public function getLiteratureGroupValuePairs()
+    public function getLiteratureGroupValuePairs($s)
     {
         return $this->getLiteratureGroups()->fetchPairs('id', 'title');
     }

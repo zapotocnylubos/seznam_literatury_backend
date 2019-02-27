@@ -1,0 +1,14 @@
+{block content}
+<h1 class="mb-4" n:block="title">Smazání literárrního setu</h1>
+
+Doopravy si přejete smazat literární set <strong>{$literatureSet->period}</strong>
+
+
+<div class="row mt-4">
+    <div class="col">
+        <a n:href="detail $literatureSet->id" class="btn btn-secondary">Zpět</a>
+    </div>
+    <div class="col text-right">
+        <a n:href="delete! $literatureSet->id" class="btn btn-danger">Smazat</a>
+    </div>
+</div>

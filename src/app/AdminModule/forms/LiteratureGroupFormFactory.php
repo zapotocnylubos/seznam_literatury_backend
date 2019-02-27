@@ -41,7 +41,8 @@ final class LiteratureGroupFormFactory
         $options = [null => '------'];
         $options += $this->setManager->getLiteratureSetValuePairs();
 
-        $form->addSelect('literature_set_id', 'Literární set:', $options);
+        $form->addSelect('literature_set_id', 'Literární set:', $options)
+            ->setRequired('Zadejte prosím literární set');
 
         $form->addText('title', 'Název skupiny:')
             ->setRequired('Zadejte prosím název skupiny.');
@@ -77,7 +78,8 @@ final class LiteratureGroupFormFactory
         $options = [null => '------'];
         $options += $this->setManager->getLiteratureSetValuePairs();
 
-        $form->addSelect('literature_set_id', 'Literární set:', $options);
+        $form->addSelect('literature_set_id', 'Literární set:', $options)
+            ->setRequired('Zadejte prosím literární set');
 
         $form->addText('title', 'Název skupiny:')
             ->setRequired('Zadejte prosím název skupiny.');

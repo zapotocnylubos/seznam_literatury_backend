@@ -95,6 +95,7 @@ final class LiteratureSetFormFactory
         $options = [null => '------'];
         $options += $this->setManager->getLiteratureSetValuePairs();
 
+        // not required because you can disable current literature set
         $form->addSelect('literature_set_id', 'Literární set:', $options);
 
         $form->addSubmit('update', 'Změnit aktivní literární set');

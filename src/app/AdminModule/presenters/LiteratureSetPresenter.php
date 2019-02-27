@@ -32,6 +32,18 @@ final class LiteratureSetPresenter extends BasePresenter
         $this->template->literatureSets = $this->literatureSetManager->getLiteratureSets();
     }
 
+    public function renderDetail($id)
+    {
+        $this->template->literatureSet = $literatureSet = $this->literatureSetManager->getLiteratureSet($id);
+
+        $this->template->literatureGroups = $literatureSet->related('literature_groups')
+            ->order('sort_order', 'DESC');
+    }
+
+    public function renderDeleteConfirm($literatureSetId) {
+        $this->template->literatureSet = $this->literatureSetManager->getLiteratureSet($literatureSetId);
+    }
+
     public function handleDelete($id)
     {
         $this->literatureSetManager->deleteLiteratureSet($id);

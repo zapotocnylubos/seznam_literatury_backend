@@ -27,7 +27,12 @@ final class BookFormFactory
     private $genreManager;
 
 
-    public function __construct(FormFactory $factory, BookManager $bookManager, AuthorManager $authorManager, GenreManager $genreManager)
+    public function __construct(
+        FormFactory $factory,
+        BookManager $bookManager,
+        AuthorManager $authorManager,
+        GenreManager $genreManager
+    )
     {
         $this->factory = $factory;
         $this->bookManager = $bookManager;
@@ -99,6 +104,31 @@ final class BookFormFactory
                 return;
             }
             $onSuccess();
+        };
+
+        return $form;
+    }
+
+    public function assign(callable $onSuccess)
+    {
+        $form = $this->factory->create();
+
+        $form->addHidden('literature_group_id');
+
+        $options = [null => '------'];
+        $options += $this->bookManager->getBookValuePairs();
+        $form->addSelect('book_id', 'Kniha:', $options);
+
+        $form->addSubmit('assign', 'Přiřadit');
+
+        $form->onSuccess[] = function (Form $form, $values) use ($onSuccess) {
+            try {
+                $this->bookManager->assignToGroup($values);
+            } catch (\Exception $e) {
+                $form->addError($e->getMessage());
+                return;
+            }
+            $onSuccess($values->literature_group_id);
         };
 
         return $form;
