@@ -21,7 +21,12 @@
                         <i class="far fa-plus-square"></i> Vytvořit literární skupinu
                     </a>
                 </div>
-                <div class="btn-group mr-2 mb-2" role="group" aria-label="Second group">
+                <div class="btn-group mr-2 mb-2" role="group">
+                    <a n:href="Genre:literatureSetSettings literatureSetId => $literatureSet->id" class="btn btn-success">
+                        <i class="far fa-edit"></i> Upravit minimální počet žánrů
+                    </a>
+                </div>
+                <div class="btn-group mr-2 mb-2" role="group">
                     <a n:href="update $literatureSet->id" class="btn btn-success">
                         <i class="far fa-edit"></i> Upravit set
                     </a>

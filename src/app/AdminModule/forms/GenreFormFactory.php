@@ -16,13 +16,13 @@ final class GenreFormFactory
     private $factory;
 
     /** @var GenreManager */
-    private $manager;
+    private $genreManager;
 
 
     public function __construct(FormFactory $factory, GenreManager $manager)
     {
         $this->factory = $factory;
-        $this->manager = $manager;
+        $this->genreManager = $manager;
     }
 
     /**
@@ -39,7 +39,7 @@ final class GenreFormFactory
 
         $form->onSuccess[] = function (Form $form, $values) use ($onSuccess) {
             try {
-                $this->manager->createGenre($values);
+                $this->genreManager->createGenre($values);
             } catch (UniqueConstraintViolationException $e) {
                 $form['name']->addError('Žánr s tímto jménem již existuje.');
                 return;
@@ -67,12 +67,47 @@ final class GenreFormFactory
 
         $form->onSuccess[] = function (Form $form, $values) use ($onSuccess) {
             try {
-                $this->manager->updateGenre($values->id, $values);
+                $this->genreManager->updateGenre($values->id, $values);
             } catch (UniqueConstraintViolationException $e) {
                 $form['name']->addError('Žánr s tímto jménem již existuje.');
                 return;
             }
             $onSuccess();
+        };
+
+        return $form;
+    }
+
+    /**
+     * @param callable $onSuccess
+     * @return \Czubehead\BootstrapForms\BootstrapForm
+     */
+    public function literatureSetSettings(callable $onSuccess)
+    {
+        $form = $this->factory->create();
+
+        $form->addHidden('literature_sets_id');
+
+        $form->addGroup('Žánry'); // následující prvky spadají do této skupiny
+
+        foreach ($this->genreManager->getGenreValuePairs() as $id => $name) {
+            $form->addInteger($id, $name);
+        }
+
+        $form->addGroup(null); // pro vyrenderovani button pod fieldset
+
+        $form->addSubmit('save', 'Uložit nastavení');
+
+        $form->onSuccess[] = function (Form $form, $values) use ($onSuccess) {
+            try {
+                foreach ($form->getGroups()['Žánry']->getControls() as $control) {
+                    $this->genreManager->updateLiteratureSetGenreSetting($values->literature_sets_id, $control->name, $control->value);
+                }
+            } catch (\Exception $e) {
+                $form->addError($e->getMessage());
+                return;
+            }
+            $onSuccess($values->literature_sets_id);
         };
 
         return $form;

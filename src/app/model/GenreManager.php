@@ -21,6 +21,11 @@ class GenreManager
         return $this->database->table('genres');
     }
 
+    public function getLiteratureSetsRequiredGenres()
+    {
+        return $this->database->table('literature_sets_required_genres');
+    }
+
     public function getGenreValuePairs()
     {
         return $this->getGenres()->fetchPairs('id', 'name');
@@ -39,6 +44,29 @@ class GenreManager
     public function updateGenre($id, $data)
     {
         $this->getGenre($id)->update($data);
+    }
+
+    public function getLiteratureSetGenresSettings($literatureSetId) {
+        return $this->getLiteratureSetsRequiredGenres()->where(['literature_sets_id' => $literatureSetId]);
+    }
+
+    public function updateLiteratureSetGenreSetting($literatureSetId, $genreId, $minCount) {
+        $setting = $this->getLiteratureSetsRequiredGenres()->where([
+            'literature_sets_id' => $literatureSetId,
+            'genres_id' => $genreId
+        ]);
+
+        if($setting->valid()) {
+            $setting->update([
+                'min_count' => $minCount
+            ]);
+        } else {
+            $this->getLiteratureSetsRequiredGenres()->insert([
+                'literature_sets_id' => $literatureSetId,
+                'genres_id' => $genreId,
+                'min_count' => $minCount
+            ]);
+        }
     }
 
     public function deleteGenre($id)

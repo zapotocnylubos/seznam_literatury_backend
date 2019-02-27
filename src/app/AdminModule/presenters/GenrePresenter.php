@@ -27,6 +27,16 @@ final class GenrePresenter extends BasePresenter
         $this['genreUpdateForm']->setDefaults($genre);
     }
 
+    public function actionLiteratureSetSettings($literatureSetId) {
+        $this['literatureSetSettingsForm']->setDefaults(['literature_sets_id' => $literatureSetId]);
+//        dump($this->genreManager->getLiteratureSetGenresSettings($literatureSetId)->fetchAll());
+//        exit();
+
+        foreach($this->genreManager->getLiteratureSetGenresSettings($literatureSetId) as $genresSetting) {
+            $this['literatureSetSettingsForm']->setDefaults([$genresSetting->genres_id => $genresSetting->min_count]);
+        }
+    }
+
     public function renderList()
     {
         $this->template->genres = $this->genreManager->getGenres();
@@ -52,6 +62,14 @@ final class GenrePresenter extends BasePresenter
         return $this->genreFactory->update(function () {
             $this->flashMessage('Žánr byl upraven.');
             $this->redirect('Genre:list');
+        });
+    }
+
+    public function createComponentLiteratureSetSettingsForm()
+    {
+        return $this->genreFactory->literatureSetSettings(function ($literature_set_id) {
+            $this->flashMessage('Nastavení bylo uloženo.');
+            $this->redirect('LiteratureSet:detail', $literature_set_id);
         });
     }
 }
