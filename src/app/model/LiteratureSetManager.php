@@ -33,7 +33,7 @@ class LiteratureSetManager
 
     public function createLiteratureSet($data)
     {
-        $this->getLiteratureSets()->insert($data);
+        return $this->getLiteratureSets()->insert($data);
     }
 
     public function updateLiteratureSet($id, $data)

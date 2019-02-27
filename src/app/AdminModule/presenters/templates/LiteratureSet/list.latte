@@ -6,6 +6,7 @@
     <thead>
     <tr>
         <th scope="col">Ročník</th>
+        <th scope="col">Počet požadovaných knih</th>
         <th scope="col">Max. knih od stejného autora</th>
         <th scope="col">Seznam literárních skupin</th>
         <th scope="col">Akce</th>
@@ -14,6 +15,7 @@
     <tbody>
     <tr n:foreach="$literatureSets as $literatureSet">
         <td><a n:href="detail $literatureSet->id">{$literatureSet->period}</a></td>
+        <td>{$literatureSet->required_book_count}</td>
         <td>{$literatureSet->author_max_count}</td>
         <td><a n:href="detail $literatureSet->id">Detail</a></td>
         <td>

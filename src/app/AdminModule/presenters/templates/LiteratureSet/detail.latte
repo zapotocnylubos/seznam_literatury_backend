@@ -10,10 +10,11 @@
 {block content}
     <div class="text-center">
         <h1 n:block=title>Seznam literatury {$literatureSet->period}</h1>
-        <p>Maximální počet knih od stejného autora: {$literatureSet->author_max_count}</p>
+        <p class="mb-0">Požadovaný počet knih: {$literatureSet->required_book_count}</p>
+        <p class="mb-0">Maximální počet knih od stejného autora: {$literatureSet->author_max_count}</p>
 
         {var $literatureSetRequiredLiteratureForms = $literatureSet->related('literature_forms')}
-        <p n:if="count($literatureSetRequiredLiteratureForms) > 0">
+        <p class="class="mb-0"" n:if="count($literatureSetRequiredLiteratureForms) > 0">
             Minimální počet literárních forem:
             {foreach $literatureSetRequiredLiteratureForms as $literatureSetRequiredLiteratureForm}
                 {$literatureSetRequiredLiteratureForm->literature_form->name}: {$literatureSetRequiredLiteratureForm->min_count}{if !$iterator->last},{/if}
@@ -21,7 +22,7 @@
         </p>
     </div>
 
-    <div class="row">
+    <div class="row mt-3">
         <div class="col">
             <div class="btn-toolbar justify-content-center" role="toolbar">
                 <div class="btn-group mr-3 mb-2" role="group">

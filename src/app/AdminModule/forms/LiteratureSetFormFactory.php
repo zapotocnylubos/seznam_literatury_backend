@@ -35,21 +35,25 @@ final class LiteratureSetFormFactory
         $form->addText('period', 'Ročník:')
             ->setRequired('Zadejte prosím ročník.');
 
+        $form->addInteger('required_book_count', 'Počet požadovaných knih:')
+            ->setRequired('Zadejte prosím kolik bude uživatel vybírat knih.')
+            ->addRule(Form::MIN, 'Minimální počet požadovaných knih je jedna.', 1);
+
         $form->addInteger('author_max_count', 'Max. knih od stejného autora:')
             ->setRequired('Zadejte prosím maximum knih od stejného autora.')
-            ->addRule(Form::MIN, 'Kniha od stejného autora musí být alespoň jedna', 1);
+            ->addRule(Form::MIN, 'Kniha od stejného autora musí být alespoň jedna.', 1);
 
 
         $form->addSubmit('create', 'Vytvořit');
 
         $form->onSuccess[] = function (Form $form, $values) use ($onSuccess) {
             try {
-                $this->setManager->createLiteratureSet($values);
+                $literatureSet = $this->setManager->createLiteratureSet($values);
             } catch (UniqueConstraintViolationException $e) {
                 $form['period']->addError('Set literatury s tímto ročníkem již existuje.');
                 return;
             }
-            $onSuccess();
+            $onSuccess($literatureSet->id);
         };
 
         return $form;
@@ -68,9 +72,13 @@ final class LiteratureSetFormFactory
         $form->addText('period', 'Ročník:')
             ->setRequired('Zadejte prosím ročník.');
 
+        $form->addInteger('required_book_count', 'Počet požadovaných knih:')
+            ->setRequired('Zadejte prosím kolik bude uživatel vybírat knih.')
+            ->addRule(Form::MIN, 'Minimální počet požadovaných knih je jedna.', 1);
+
         $form->addInteger('author_max_count', 'Max. knih od stejného autora:')
             ->setRequired('Zadejte prosím maximum knih od stejného autora.')
-            ->addRule(Form::MIN, 'Kniha od stejného autora musí být alespoň jedna', 1);
+            ->addRule(Form::MIN, 'Kniha od stejného autora musí být alespoň jedna.', 1);
 
         $form->addSubmit('update', 'Upravit');
 
@@ -81,7 +89,7 @@ final class LiteratureSetFormFactory
                 $form['period']->addError('Set literatury s tímto ročníkem již existuje.');
                 return;
             }
-            $onSuccess();
+            $onSuccess($values->id);
         };
 
         return $form;

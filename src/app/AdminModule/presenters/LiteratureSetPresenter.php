@@ -66,17 +66,17 @@ final class LiteratureSetPresenter extends BasePresenter
 
     public function createComponentLiteratureSetCreateForm()
     {
-        return $this->literatureSetFactory->create(function () {
+        return $this->literatureSetFactory->create(function ($literature_set_id) {
             $this->flashMessage('Literární set byl vytvořen.');
-            $this->redirect('LiteratureSet:list');
+            $this->redirect('LiteratureSet:detail', $literature_set_id);
         });
     }
 
     public function createComponentLiteratureSetUpdateForm()
     {
-        return $this->literatureSetFactory->update(function () {
+        return $this->literatureSetFactory->update(function ($literature_set_id) {
             $this->flashMessage('Literární set byl upraven.');
-            $this->redirect('LiteratureSet:list');
+            $this->redirect('LiteratureSet:detail', $literature_set_id);
         });
     }
 
