@@ -8,12 +8,10 @@
 {/block}
 
 {block content}
-
     <div class="text-center">
         <h1 n:block=title>Seznam literatury {$literatureSet->period}</h1>
         <p>Maximální počet knih od stejného autora: {$literatureSet->author_max_count}</p>
     </div>
-
 
     <div class="row">
         <div class="col">
@@ -45,12 +43,14 @@
             </div>
             <div class="col text-right">
                 <div class="btn-group align-items-center" role="group">
-                    <a n:href="Book:assign literatureGroupId => $literatureGroup->id" class="btn btn-primary">
+                    <a n:href="Book:assign literatureGroupId => $literatureGroup->id" class="btn btn-sm btn-primary">
                         <i class="fas fa-plus-square"></i> Přiřadit knihu
                     </a>
-                    <a n:href="LiteratureGroup:update $literatureGroup->id" class="btn btn-success mr-2">
+                    <a n:href="LiteratureGroup:update $literatureGroup->id" class="btn btn-sm btn-success mr-2">
                         <i class="fas fa-edit"></i> Upravit skupinu
                     </a>
+                </div>
+                <div class="btn-group align-items-center" role="group">
                     <a n:href="LiteratureGroup:reorderUp $literatureGroup->id" class="btn">
                         <i class="fas fa-2x fa-angle-up"></i>
                     </a>
@@ -77,10 +77,11 @@
                 <td class="align-middle">{$book->author->full_name}</td>
                 <td class="align-middle">{$book->genre->name}</td>
                 <td class="fitted">
+                    <a n:href="Book:unassign literatureGroupsHasBooksId => $literatureGroupBook->id"
+                            class="btn btn-sm btn-danger mr-2">
+                        Odebrat knihu
+                    </a>
                     <div class="btn-group align-items-center" role="group">
-                        <a n:href="Book:unassign literatureGroupsHasBooksId => $literatureGroupBook->id" class="btn btn-sm btn-danger mr-2">
-                            <i class="far trash-al"></i> Odebrat knihu
-                        </a>
                         <a n:href="Book:reorderUp $literatureGroupBook->id" class="btn btn-sm">
                             <i class="fas fa-2x fa-angle-up"></i>
                         </a>
@@ -93,5 +94,4 @@
             </tbody>
         </table>
     {/foreach}
-
 {/block}

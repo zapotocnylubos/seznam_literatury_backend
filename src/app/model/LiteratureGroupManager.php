@@ -21,7 +21,7 @@ class LiteratureGroupManager
         return $this->database->table('literature_groups');
     }
 
-    public function getLiteratureGroupValuePairs($s)
+    public function getLiteratureGroupValuePairs()
     {
         return $this->getLiteratureGroups()->fetchPairs('id', 'title');
     }
@@ -29,7 +29,7 @@ class LiteratureGroupManager
     public function reindexGroupsOrder($ids) {
         for ($i = 0; $i < count($ids) ; $i++) {
             $this->getLiteratureGroup($ids[$i])
-                ->update(['sort_order' => $i]);
+                ->update(['sort_order' => (count($ids) - 1) - $i]);
         }
     }
 

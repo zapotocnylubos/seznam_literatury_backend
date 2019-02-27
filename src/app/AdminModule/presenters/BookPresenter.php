@@ -59,7 +59,7 @@ final class BookPresenter extends BasePresenter
 
 
         $ids = [];
-        foreach ($groupBooks as  $groupBook) {
+        foreach ($groupBooks as $groupBook) {
             $ids[] = $groupBook->id;
         }
 
@@ -77,7 +77,6 @@ final class BookPresenter extends BasePresenter
         $groupBooks = $this->bookManager->getLiteratureGroupsHasBooks()
             ->where('literature_groups_id', $currentGroupBook->literature_groups_id)
             ->order('sort_order', 'DESC');
-
 
         $ids = [];
         foreach ($groupBooks as  $groupBook) {

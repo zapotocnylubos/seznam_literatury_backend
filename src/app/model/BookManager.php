@@ -56,9 +56,9 @@ class BookManager
     }
 
     public function reindexLiteratureGroupBooksOrder($ids) {
-        for ($i = 0; $i < count($ids) ; $i++) {
+        for ($i = 0; $i < count($ids); $i++) {
             $this->getLiteratureGroupBook($ids[$i])
-                ->update(['sort_order' => $i]);
+                ->update(['sort_order' => (count($ids) - 1) - $i]);
         }
     }
 
