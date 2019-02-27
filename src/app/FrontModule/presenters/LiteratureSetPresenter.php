@@ -59,7 +59,7 @@ final class LiteratureSetPresenter extends BasePresenter
             'period' => $currentLiteratureSet->period,
             'required_book_count' => $currentLiteratureSet->required_book_count,
             'author_max_count' => $currentLiteratureSet->author_max_count,
-            'groups' => $literatureGroups,
+            'literature_groups' => $literatureGroups,
             'required_literature_forms' => $requiredLiteratureForms
         ];
 
