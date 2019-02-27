@@ -4,6 +4,7 @@ namespace App\AdminModule\Presenters;
 
 
 use App\AdminModule\Forms\BookFormFactory;
+use App\Helpers\OrderHelper;
 use App\Models\BookManager;
 use App\Models\LiteratureGroupManager;
 
@@ -46,6 +47,48 @@ final class BookPresenter extends BasePresenter
 
         $this->flashMessage('Kniha byla odebrána.');
         $this->redirect('LiteratureSet:detail', $literatureSetId);
+    }
+
+    public function actionReorderDown($literatureGroupsHasBooksId)
+    {
+        $currentGroupBook = $this->bookManager->getLiteratureGroupBook($literatureGroupsHasBooksId);
+
+        $groupBooks = $this->bookManager->getLiteratureGroupsHasBooks()
+            ->where('literature_groups_id', $currentGroupBook->literature_groups_id)
+            ->order('sort_order', 'DESC');
+
+
+        $ids = [];
+        foreach ($groupBooks as  $groupBook) {
+            $ids[] = $groupBook->id;
+        }
+
+        $ids = OrderHelper::ChangeOrderDown($ids, $currentGroupBook->id);
+
+        $this->bookManager->reindexLiteratureGroupBooksOrder($ids);
+
+        $this->redirect('LiteratureSet:detail', $currentGroupBook->literature_group->literature_set_id);
+    }
+
+    public function actionReorderUp($literatureGroupsHasBooksId)
+    {
+        $currentGroupBook = $this->bookManager->getLiteratureGroupBook($literatureGroupsHasBooksId);
+
+        $groupBooks = $this->bookManager->getLiteratureGroupsHasBooks()
+            ->where('literature_groups_id', $currentGroupBook->literature_groups_id)
+            ->order('sort_order', 'DESC');
+
+
+        $ids = [];
+        foreach ($groupBooks as  $groupBook) {
+            $ids[] = $groupBook->id;
+        }
+
+        $ids = OrderHelper::ChangeOrderUp($ids, $currentGroupBook->id);
+
+        $this->bookManager->reindexLiteratureGroupBooksOrder($ids);
+
+        $this->redirect('LiteratureSet:detail', $currentGroupBook->literature_group->literature_set_id);
     }
 
     public function renderList()

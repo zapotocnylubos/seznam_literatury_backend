@@ -61,7 +61,7 @@
             </div>
         </div>
 
-        <table class="table book-table mb-5">
+        <table class="table table-sm book-table mb-5">
             <thead>
             <tr>
                 <th scope="col">Jméno knihy</th>
@@ -71,21 +71,20 @@
             </tr>
             </thead>
             <tbody>
-            <tr n:foreach="$literatureGroup->related('books') as $literatureGroupBook">
+            <tr n:foreach="$literatureGroup->related('books')->order('sort_order', 'DESC') as $literatureGroupBook">
                 {var $book = $literatureGroupBook->book}
                 <td class="align-middle">{$book->title}</td>
                 <td class="align-middle">{$book->author->full_name}</td>
                 <td class="align-middle">{$book->genre->name}</td>
-                {*<td>asd</td>*}
                 <td class="fitted">
                     <div class="btn-group align-items-center" role="group">
-                        <a n:href="Book:unassign literatureGroupsHasBooksId => $literatureGroupBook->id" class="btn btn-danger mr-2">
+                        <a n:href="Book:unassign literatureGroupsHasBooksId => $literatureGroupBook->id" class="btn btn-sm btn-danger mr-2">
                             <i class="far trash-al"></i> Odebrat knihu
                         </a>
-                        <a n:href="LiteratureGroup:reorderUp $literatureGroup->id" class="btn">
+                        <a n:href="Book:reorderUp $literatureGroupBook->id" class="btn btn-sm">
                             <i class="fas fa-2x fa-angle-up"></i>
                         </a>
-                        <a n:href="LiteratureGroup:reorderDown $literatureGroup->id" class="btn">
+                        <a n:href="Book:reorderDown $literatureGroupBook->id" class="btn btn-sm">
                             <i class="fas fa-2x fa-angle-down"></i>
                         </a>
                     </div>

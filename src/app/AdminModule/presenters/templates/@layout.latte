@@ -25,8 +25,8 @@
 <div class="container py-3">
     <div n:foreach="$flashes as $flash" class="alert alert-{$flash->type} my-3" role="alert">
         {$flash->message}
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
+        <button type="button" class="close" data-dismiss="alert">
+            <span>&times;</span>
         </button>
     </div>
 

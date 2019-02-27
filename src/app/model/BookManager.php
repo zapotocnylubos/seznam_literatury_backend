@@ -55,6 +55,13 @@ class BookManager
             ->where('id', $id)->fetch();
     }
 
+    public function reindexLiteratureGroupBooksOrder($ids) {
+        for ($i = 0; $i < count($ids) ; $i++) {
+            $this->getLiteratureGroupBook($ids[$i])
+                ->update(['sort_order' => $i]);
+        }
+    }
+
     public function assignToGroup($data)
     {
         $this->getLiteratureGroupsHasBooks()
