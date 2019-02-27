@@ -46,9 +46,23 @@ class BookManager
         $this->getBook($id)->delete();
     }
 
+    public function getLiteratureGroupsHasBooks() {
+        return $this->database->table('literature_groups_has_books');
+    }
+
+    public function getLiteratureGroupBook($id) {
+        return $this->getLiteratureGroupsHasBooks()
+            ->where('id', $id)->fetch();
+    }
+
     public function assignToGroup($data)
     {
-        $this->database->table('literature_groups_has_books')
+        $this->getLiteratureGroupsHasBooks()
             ->insert($data);
+    }
+
+    public function unassignFromGroup($literatureGroupsHasBooksId)
+    {
+        $this->getLiteratureGroupBook($literatureGroupsHasBooksId)->delete();
     }
 }

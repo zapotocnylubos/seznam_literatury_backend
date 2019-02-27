@@ -1,71 +1,98 @@
+{block head}
+    <style>
+        .book-table th.fitted, .book-table td.fitted {
+            white-space: nowrap;
+            width: 1%;
+        }
+    </style>
+{/block}
+
 {block content}
 
-<div class="text-center">
-    <h1 n:block=title>Seznam literatury {$literatureSet->period}</h1>
-    <p>Maximální počet knih od stejného autora: {$literatureSet->author_max_count}</p>
-</div>
-
-
-<div class="row">
-    <div class="col">
-        <div class="btn-toolbar" role="toolbar">
-            <div class="btn-group mr-3 mb-2" role="group">
-                <a n:href="LiteratureGroup:create literatureSetId => $literatureSet->id" class="btn btn-primary">
-                    <i class="far fa-plus-square"></i> Vytvořit literární skupinu
-                </a>
-            </div>
-            <div class="btn-group mr-2 mb-2" role="group" aria-label="Second group">
-                <a n:href="update $literatureSet->id" class="btn btn-success">
-                    <i class="far fa-edit"></i> Upravit set
-                </a>
-                <a n:href="deleteConfirm $literatureSet->id" class="btn btn-danger">
-                    <i class="far fa-trash-alt"></i> Smazat set
-                </a>
-            </div>
-        </div>
+    <div class="text-center">
+        <h1 n:block=title>Seznam literatury {$literatureSet->period}</h1>
+        <p>Maximální počet knih od stejného autora: {$literatureSet->author_max_count}</p>
     </div>
-</div>
 
-<hr>
 
-{foreach $literatureGroups as $literatureGroup}
     <div class="row">
         <div class="col">
-            <h4>{$literatureGroup->title}</h4>
-            <small>Minimální počet knih z této skupiny: {$literatureGroup->min_count}</small>
-        </div>
-        <div class="col text-right">
-            <div class="btn-group align-items-center" role="group">
-                <a n:href="Book:assign literatureGroupId => $literatureGroup->id" class="btn btn-primary">
-                    <i class="fas fa-plus-square"></i> Přiřadit knihu
-                </a>
-                <a n:href="LiteratureGroup:update $literatureGroup->id" class="btn btn-success">
-                    <i class="fas fa-edit"></i> Upravit skupinu
-                </a>
-                <a n:href="LiteratureGroup:reorderUp $literatureGroup->id" class="btn">
-                    <i class="fas fa-2x fa-angle-up"></i>
-                </a>
-                <a n:href="LiteratureGroup:reorderDown $literatureGroup->id" class="btn">
-                    <i class="fas fa-2x fa-angle-down"></i>
-                </a>
+            <div class="btn-toolbar" role="toolbar">
+                <div class="btn-group mr-3 mb-2" role="group">
+                    <a n:href="LiteratureGroup:create literatureSetId => $literatureSet->id" class="btn btn-primary">
+                        <i class="far fa-plus-square"></i> Vytvořit literární skupinu
+                    </a>
+                </div>
+                <div class="btn-group mr-2 mb-2" role="group" aria-label="Second group">
+                    <a n:href="update $literatureSet->id" class="btn btn-success">
+                        <i class="far fa-edit"></i> Upravit set
+                    </a>
+                    <a n:href="deleteConfirm $literatureSet->id" class="btn btn-danger">
+                        <i class="far fa-trash-alt"></i> Smazat set
+                    </a>
+                </div>
             </div>
         </div>
     </div>
 
-    <table class="table mb-5">
-        <thead>
-        <tr>
-            <th scope="col">Jméno knihy</th>
-            <th scope="col">Autor</th>
-            <th scope="col">Žánr</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr n:foreach="$literatureGroup->related('books') as $literatureGroupBook">
-            <td>{$literatureGroupBook->book->title}</td>
-            <td>{$literatureGroupBook->book->author->full_name}</td>
-            <td>{$literatureGroupBook->book->genre->name}</td>
-        </tr>
-        </tbody>
-    </table>
-{/foreach}
+    <hr>
+
+    {foreach $literatureGroups as $literatureGroup}
+        <div class="row">
+            <div class="col">
+                <h4>{$literatureGroup->title}</h4>
+                <small>Minimální počet knih z této skupiny: {$literatureGroup->min_count}</small>
+            </div>
+            <div class="col text-right">
+                <div class="btn-group align-items-center" role="group">
+                    <a n:href="Book:assign literatureGroupId => $literatureGroup->id" class="btn btn-primary">
+                        <i class="fas fa-plus-square"></i> Přiřadit knihu
+                    </a>
+                    <a n:href="LiteratureGroup:update $literatureGroup->id" class="btn btn-success mr-2">
+                        <i class="fas fa-edit"></i> Upravit skupinu
+                    </a>
+                    <a n:href="LiteratureGroup:reorderUp $literatureGroup->id" class="btn">
+                        <i class="fas fa-2x fa-angle-up"></i>
+                    </a>
+                    <a n:href="LiteratureGroup:reorderDown $literatureGroup->id" class="btn">
+                        <i class="fas fa-2x fa-angle-down"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <table class="table book-table mb-5">
+            <thead>
+            <tr>
+                <th scope="col">Jméno knihy</th>
+                <th scope="col">Autor</th>
+                <th scope="col">Žánr</th>
+                <th scope="col" class="fitted">Akce</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr n:foreach="$literatureGroup->related('books') as $literatureGroupBook">
+                {var $book = $literatureGroupBook->book}
+                <td class="align-middle">{$book->title}</td>
+                <td class="align-middle">{$book->author->full_name}</td>
+                <td class="align-middle">{$book->genre->name}</td>
+                {*<td>asd</td>*}
+                <td class="fitted">
+                    <div class="btn-group align-items-center" role="group">
+                        <a n:href="Book:unassign literatureGroupsHasBooksId => $literatureGroupBook->id" class="btn btn-danger mr-2">
+                            <i class="far trash-al"></i> Odebrat knihu
+                        </a>
+                        <a n:href="LiteratureGroup:reorderUp $literatureGroup->id" class="btn">
+                            <i class="fas fa-2x fa-angle-up"></i>
+                        </a>
+                        <a n:href="LiteratureGroup:reorderDown $literatureGroup->id" class="btn">
+                            <i class="fas fa-2x fa-angle-down"></i>
+                        </a>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    {/foreach}
+
+{/block}

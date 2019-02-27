@@ -37,6 +37,17 @@ final class BookPresenter extends BasePresenter
         $this['assignBookForm']->setDefaults(['literature_groups_id' => $literatureGroupId]);
     }
 
+    public function actionUnassign($literatureGroupsHasBooksId)
+    {
+        $groupBook = $this->bookManager->getLiteratureGroupBook($literatureGroupsHasBooksId);
+        $literatureSetId = $groupBook->literature_group->literature_set_id;
+
+        $this->bookManager->unassignFromGroup($literatureGroupsHasBooksId);
+
+        $this->flashMessage('Kniha byla odebrána.');
+        $this->redirect('LiteratureSet:detail', $literatureSetId);
+    }
+
     public function renderList()
     {
         $this->template->books = $this->bookManager->getBooks();
