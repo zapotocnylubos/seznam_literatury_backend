@@ -4,7 +4,7 @@ namespace App\AdminModule\Forms;
 
 use App\Models\AuthorManager;
 use App\Models\BookManager;
-use App\Models\GenreManager;
+use App\Models\LiteratureFormManager;
 use Nette;
 use Nette\Application\UI\Form;
 use Nette\Database\UniqueConstraintViolationException;
@@ -23,21 +23,21 @@ final class BookFormFactory
     /** @var AuthorManager */
     private $authorManager;
 
-    /** @var GenreManager */
-    private $genreManager;
+    /** @var LiteratureFormManager */
+    private $literatureFormManager;
 
 
     public function __construct(
         FormFactory $factory,
         BookManager $bookManager,
         AuthorManager $authorManager,
-        GenreManager $genreManager
+        LiteratureFormManager $literatureFormManager
     )
     {
         $this->factory = $factory;
         $this->bookManager = $bookManager;
         $this->authorManager = $authorManager;
-        $this->genreManager = $genreManager;
+        $this->literatureFormManager = $literatureFormManager;
     }
 
     /**
@@ -55,8 +55,8 @@ final class BookFormFactory
         $form->addSelect('author_id', 'Autor:', $options);
 
         $options = [null => '------'];
-        $options += $this->genreManager->getGenreValuePairs();
-        $form->addSelect('genre_id', 'Žánr:', $options);
+        $options += $this->literatureFormManager->getLiteratureFormsValuePairs();
+        $form->addSelect('literature_form_id', 'Literární forma:', $options);
 
         $form->addSubmit('create', 'Vytvořit');
 
@@ -91,8 +91,8 @@ final class BookFormFactory
         $form->addSelect('author_id', 'Autor:', $options);
 
         $options = [null => '------'];
-        $options += $this->genreManager->getGenreValuePairs();
-        $form->addSelect('genre_id', 'Žánr:', $options);
+        $options += $this->literatureFormManager->getLiteratureFormsValuePairs();
+        $form->addSelect('literature_form_id', 'Literární forma:', $options);
 
         $form->addSubmit('update', 'Upravit');
 

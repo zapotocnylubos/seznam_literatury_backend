@@ -13,7 +13,7 @@
     </thead>
     <tbody>
     <tr n:foreach="$literatureSets as $literatureSet">
-        <td>{$literatureSet->period}</td>
+        <td><a n:href="detail $literatureSet->id">{$literatureSet->period}</a></td>
         <td>{$literatureSet->author_max_count}</td>
         <td><a n:href="detail $literatureSet->id">Detail</a></td>
         <td>

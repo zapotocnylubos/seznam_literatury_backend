@@ -18,13 +18,13 @@ session:
 services:
 	- App\AdminModule\Forms\FormFactory
 	- App\AdminModule\Forms\SignInFormFactory
-	- App\AdminModule\Forms\GenreFormFactory
+	- App\AdminModule\Forms\LiteratureFormFormFactory
 	- App\AdminModule\Forms\AuthorFormFactory
 	- App\AdminModule\Forms\LiteratureSetFormFactory
 	- App\AdminModule\Forms\LiteratureGroupFormFactory
 	- App\AdminModule\Forms\BookFormFactory
 	- App\FrontModule\Forms\FormFactory
-	- App\Models\GenreManager
+	- App\Models\LiteratureFormManager
 	- App\Models\AuthorManager
 	- App\Models\LiteratureSetManager
 	- App\Models\LiteratureGroupManager

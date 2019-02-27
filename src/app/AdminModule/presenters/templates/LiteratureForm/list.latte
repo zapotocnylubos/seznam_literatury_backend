@@ -1,0 +1,18 @@
+{block content}
+
+<table class="table">
+    <thead>
+    <tr>
+        <th scope="col">Jméno literární formy</th>
+        <th scope="col">Akce</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr n:foreach="$literatureForms as $literatureForm">
+        <td>{$literatureForm->name}</td>
+        <td>
+            <a n:href="update $literatureForm->id">Upravit</a> | <a n:href="delete! $literatureForm->id">Smazat</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
