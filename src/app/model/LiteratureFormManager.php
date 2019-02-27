@@ -62,18 +62,24 @@ class LiteratureFormManager
         $setting = $this->getLiteratureSetsRequiredLiteratureForms()->where([
             'literature_sets_id' => $literatureSetId,
             'literature_forms_id' => $literatureFormId
-        ]);
+        ])->fetch();
 
-        if ($setting->valid()) {
-            $setting->update([
-                'min_count' => $minCount
-            ]);
+        if (!$setting) {
+            if ($minCount > 0) {
+                $this->getLiteratureSetsRequiredLiteratureForms()->insert([
+                    'literature_sets_id' => $literatureSetId,
+                    'literature_forms_id' => $literatureFormId,
+                    'min_count' => $minCount
+                ]);
+            }
         } else {
-            $this->getLiteratureSetsRequiredLiteratureForms()->insert([
-                'literature_sets_id' => $literatureSetId,
-                'literature_forms_id' => $literatureFormId,
-                'min_count' => $minCount
-            ]);
+            if ($minCount > 0) {
+                $setting->update([
+                    'min_count' => $minCount
+                ]);
+            } else {
+                $setting->delete();
+            }
         }
     }
 }

@@ -1,9 +1,9 @@
 {block content}
 
 {if $activeLiteratureSet}
-    <h4>Aktivni set je: {$activeLiteratureSet->period}</h4>
+    <h4 class="mb-3">Aktivní set je: <a n:href="LiteratureSet:detail $activeLiteratureSet->id">{$activeLiteratureSet->period}</a></h4>
 {else}
-    <h4 style="color: red">Není nastaven aktivní set</h4>
+    <h4 class="mb-3" style="color: red">Není nastaven aktivní literární set</h4>
 {/if}
 
 <a n:href="activeUpdate">Změnit aktivní literární set</a>

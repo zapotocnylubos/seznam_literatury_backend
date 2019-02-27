@@ -36,7 +36,9 @@ final class LiteratureSetFormFactory
             ->setRequired('Zadejte prosím ročník.');
 
         $form->addInteger('author_max_count', 'Max. knih od stejného autora:')
-            ->setRequired('Zadejte prosím maximum knih od stejného autora.');
+            ->setRequired('Zadejte prosím maximum knih od stejného autora.')
+            ->addRule(Form::MIN, 'Kniha od stejného autora musí být alespoň jedna', 1);
+
 
         $form->addSubmit('create', 'Vytvořit');
 
@@ -67,7 +69,8 @@ final class LiteratureSetFormFactory
             ->setRequired('Zadejte prosím ročník.');
 
         $form->addInteger('author_max_count', 'Max. knih od stejného autora:')
-            ->setRequired('Zadejte prosím maximum knih od stejného autora.');
+            ->setRequired('Zadejte prosím maximum knih od stejného autora.')
+            ->addRule(Form::MIN, 'Kniha od stejného autora musí být alespoň jedna', 1);
 
         $form->addSubmit('update', 'Upravit');
 

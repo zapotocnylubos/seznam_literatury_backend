@@ -11,6 +11,14 @@
     <div class="text-center">
         <h1 n:block=title>Seznam literatury {$literatureSet->period}</h1>
         <p>Maximální počet knih od stejného autora: {$literatureSet->author_max_count}</p>
+
+        {var $literatureSetRequiredLiteratureForms = $literatureSet->related('literature_forms')}
+        <p n:if="count($literatureSetRequiredLiteratureForms) > 0">
+            Minimální počet literárních forem:
+            {foreach $literatureSetRequiredLiteratureForms as $literatureSetRequiredLiteratureForm}
+                {$literatureSetRequiredLiteratureForm->literature_form->name}: {$literatureSetRequiredLiteratureForm->min_count}{if !$iterator->last},{/if}
+            {/foreach}
+        </p>
     </div>
 
     <div class="row">
@@ -41,6 +49,8 @@
     </div>
 
     <hr>
+
+    {var $indexer = 1}
 
     {foreach $literatureGroups as $literatureGroup}
         <div class="card mb-3">
@@ -74,19 +84,21 @@
                 <table class="table table-sm book-table mt-3 mb-0">
                     <thead>
                     <tr>
-                        <th scope="col">Jméno knihy</th>
-                        <th scope="col">Autor</th>
-                        <th scope="col">Literární forma</th>
+                        <th scope="col">Číslo titulu</th>
+                        <th scope="col">Jméno a příjmení autora</th>
+                        <th scope="col">Název titulu</th>
+                        {*<th scope="col">Literární forma</th>*}
                         <th scope="col" class="fitted">Akce</th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr n:foreach="$literatureGroup->related('books')->order('sort_order', 'DESC') as $literatureGroupBook">
                         {var $book = $literatureGroupBook->book}
-                        <td class="align-middle">{$book->title}</td>
+                        <td class="align-middle">{$indexer++}</td>
                         <td class="align-middle">{$book->author->full_name}</td>
-                        <td class="align-middle">{$book->literature_form->name}</td>
-                        <td class="fitted">
+                        <td class="align-middle">{$book->title}</td>
+                        {*<td class="align-middle">{$book->literature_form->name}</td>*}
+                        <td class="align-middle fitted">
                             <a n:href="Book:unassign literatureGroupsHasBooksId => $literatureGroupBook->id"
                                     class="btn btn-sm btn-danger mr-2">
                                 Odebrat knihu
