@@ -113,11 +113,11 @@ final class BookFormFactory
     {
         $form = $this->factory->create();
 
-        $form->addHidden('literature_group_id');
+        $form->addHidden('literature_groups_id');
 
         $options = [null => '------'];
         $options += $this->bookManager->getBookValuePairs();
-        $form->addSelect('book_id', 'Kniha:', $options);
+        $form->addSelect('books_id', 'Kniha:', $options);
 
         $form->addSubmit('assign', 'Přiřadit');
 
@@ -128,7 +128,7 @@ final class BookFormFactory
                 $form->addError($e->getMessage());
                 return;
             }
-            $onSuccess($values->literature_group_id);
+            $onSuccess($values->literature_groups_id);
         };
 
         return $form;

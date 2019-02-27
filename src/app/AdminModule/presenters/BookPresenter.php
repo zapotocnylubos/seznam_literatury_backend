@@ -34,7 +34,7 @@ final class BookPresenter extends BasePresenter
 
     public function actionAssign($literatureGroupId)
     {
-        $this['assignBookForm']->setDefaults(['literature_group_id' => $literatureGroupId]);
+        $this['assignBookForm']->setDefaults(['literature_groups_id' => $literatureGroupId]);
     }
 
     public function renderList()

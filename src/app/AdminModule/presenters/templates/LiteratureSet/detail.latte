@@ -61,6 +61,11 @@
         </tr>
         </thead>
         <tbody>
+        <tr n:foreach="$literatureGroup->related('books') as $literatureGroupBook">
+            <td>{$literatureGroupBook->book->title}</td>
+            <td>{$literatureGroupBook->book->author->full_name}</td>
+            <td>{$literatureGroupBook->book->genre->name}</td>
+        </tr>
         </tbody>
     </table>
 {/foreach}
