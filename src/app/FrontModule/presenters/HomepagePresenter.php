@@ -3,10 +3,12 @@
 namespace App\FrontModule\Presenters;
 
 
+use Nette\Application\Responses\RedirectResponse;
+
 final class HomepagePresenter extends BasePresenter
 {
-    public function renderDefault()
+    public function actionDefault()
     {
-        $this->template->anyVariable = 'any value';
+        $this->sendResponse(new RedirectResponse('/literature_set/'));
     }
 }

@@ -102,3 +102,4 @@ temp/*
 !.htaccess
 !web.config
 app/config/config.local.neon
+www/literature_set/*
