@@ -48,7 +48,7 @@ final class LiteratureSetPresenter extends BasePresenter
     {
         $this->literatureSetManager->deleteLiteratureSet($id);
         $this->flashMessage('Literární set byl smazán.');
-        $this->redirect('this');
+        $this->redirect('LiteratureSet:list');
     }
 
     public function actionActiveUpdate()
