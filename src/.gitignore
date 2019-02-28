@@ -103,3 +103,4 @@ temp/*
 !web.config
 app/config/config.local.neon
 www/literature_set/*
+!www/literature_set/.gitkeep
