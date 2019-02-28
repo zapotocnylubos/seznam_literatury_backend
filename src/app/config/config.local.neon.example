@@ -1,0 +1,12 @@
+parameters:
+
+security:
+    users:
+        ucitel: ucitel123  # user 'ucitel', password 'ucitel123'
+
+database:
+    dsn: 'mysql:host=db;dbname=literature'
+    user: root
+    password: heslo
+    options:
+        lazy: yes

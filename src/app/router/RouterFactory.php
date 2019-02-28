@@ -19,7 +19,7 @@ final class RouterFactory
         $router = new RouteList;
 
         $admin = new RouteList('Admin');
-        $admin[] = new Route('admin/<presenter>/<action>[/<id>]', 'Homepage:default');
+        $admin[] = new Route('admin/<presenter>/<action>[/<id>]', 'LiteratureSet:list');
 
         $front = new RouteList('Front');
         $front[] = new Route('<presenter>/<action>[/<id>]', 'Homepage:default');

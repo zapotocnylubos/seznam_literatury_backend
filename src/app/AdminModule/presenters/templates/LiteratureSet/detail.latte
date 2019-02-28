@@ -27,21 +27,21 @@
             <div class="btn-toolbar justify-content-center" role="toolbar">
                 <div class="btn-group mr-3 mb-2" role="group">
                     <a n:href="LiteratureGroup:create literatureSetId => $literatureSet->id"
-                            class="btn btn-sm btn-primary">
+                            class="btn d-print-none btn-sm btn-primary">
                         <i class="far fa-plus-square"></i> Vytvořit literární skupinu
                     </a>
                 </div>
                 <div class="btn-group mr-2 mb-2" role="group">
                     <a n:href="LiteratureForm:literatureSetSettings literatureSetId => $literatureSet->id"
-                            class="btn btn-sm btn-success">
+                            class="btn d-print-none btn-sm btn-success">
                         <i class="far fa-edit"></i> Upravit minimální počet literárních forem
                     </a>
                 </div>
                 <div class="btn-group mr-2 mb-2" role="group">
-                    <a n:href="update $literatureSet->id" class="btn btn-sm btn-success">
+                    <a n:href="update $literatureSet->id" class="btn d-print-none btn-sm btn-success">
                         <i class="far fa-edit"></i> Upravit set
                     </a>
-                    <a n:href="deleteConfirm $literatureSet->id" class="btn btn-sm btn-danger">
+                    <a n:href="deleteConfirm $literatureSet->id" class="btn d-print-none btn-sm btn-danger">
                         <i class="far fa-trash-alt"></i> Smazat set
                     </a>
                 </div>
@@ -49,7 +49,7 @@
         </div>
     </div>
 
-    <hr>
+    <hr class="d-print-none">
 
     {var $indexer = 1}
 
@@ -61,10 +61,10 @@
                         <h4>{$literatureGroup->title}</h4>
                         <small>Minimální počet knih z této skupiny: {$literatureGroup->min_count}</small>
                     </div>
-                    <div class="col text-right">
+                    <div class="col text-right d-print-none">
                         <div class="btn-group align-items-center" role="group">
                             <a n:href="Book:assign literatureGroupId => $literatureGroup->id"
-                                    class="btn btn-sm btn-primary">
+                                    class="btn d-print-none btn-sm btn-primary">
                                 <i class="fas fa-plus-square"></i> Přiřadit knihu
                             </a>
                             <a n:href="LiteratureGroup:update $literatureGroup->id" class="btn btn-sm btn-success mr-2">
@@ -89,7 +89,7 @@
                         <th scope="col">Jméno a příjmení autora</th>
                         <th scope="col">Název titulu</th>
                         {*<th scope="col">Literární forma</th>*}
-                        <th scope="col" class="fitted">Akce</th>
+                        <th scope="col" class="fitted d-print-none">Akce</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -99,7 +99,7 @@
                         <td class="align-middle">{$book->author->full_name}</td>
                         <td class="align-middle">{$book->title}</td>
                         {*<td class="align-middle">{$book->literature_form->name}</td>*}
-                        <td class="align-middle fitted">
+                        <td class="align-middle fitted d-print-none">
                             <a n:href="Book:unassign literatureGroupsHasBooksId => $literatureGroupBook->id"
                                     class="btn btn-sm btn-danger mr-2">
                                 Odebrat knihu
