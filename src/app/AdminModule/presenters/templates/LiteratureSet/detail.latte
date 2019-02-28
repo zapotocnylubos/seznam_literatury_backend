@@ -14,11 +14,11 @@
         <p class="mb-0">Maximální počet knih od stejného autora: {$literatureSet->author_max_count}</p>
 
         {var $literatureSetRequiredLiteratureForms = $literatureSet->related('literature_forms')}
-        <p class="class="mb-0"" n:if="count($literatureSetRequiredLiteratureForms) > 0">
-            Minimální počet literárních forem:
-            {foreach $literatureSetRequiredLiteratureForms as $literatureSetRequiredLiteratureForm}
-                {$literatureSetRequiredLiteratureForm->literature_form->name}: {$literatureSetRequiredLiteratureForm->min_count}{if !$iterator->last},{/if}
-            {/foreach}
+        <p class="class=" mb-0"" n:if="count($literatureSetRequiredLiteratureForms) > 0">
+        Minimální počet literárních forem:
+        {foreach $literatureSetRequiredLiteratureForms as $literatureSetRequiredLiteratureForm}
+            {$literatureSetRequiredLiteratureForm->literature_form->name}: {$literatureSetRequiredLiteratureForm->min_count}{if !$iterator->last},{/if}
+        {/foreach}
         </p>
     </div>
 
@@ -67,13 +67,20 @@
                         <small>Minimální počet knih z této skupiny: {$literatureGroup->min_count}</small>
                     </div>
                     <div class="col text-right d-print-none">
-                        <div class="btn-group align-items-center" role="group">
+                        <div class="btn-group align-items-center mr-2" role="group">
                             <a n:href="Book:assign literatureGroupId => $literatureGroup->id"
                                     class="btn d-print-none btn-sm btn-primary">
                                 <i class="fas fa-plus-square"></i> Přiřadit knihu
                             </a>
-                            <a n:href="LiteratureGroup:update $literatureGroup->id" class="btn btn-sm btn-success mr-2">
+                        </div>
+
+                        <div class="btn-group align-items-center" role="group">
+                            <a n:href="LiteratureGroup:update $literatureGroup->id" class="btn btn-sm btn-success">
                                 <i class="fas fa-edit"></i> Upravit skupinu
+                            </a>
+                            <a n:href="LiteratureGroup:delete $literatureGroup->id"
+                                    class="btn d-print-none btn-sm btn-danger mr-2 group-confirm-remove">
+                                <i class="fas fa-trash"></i> Odstranit skupinu
                             </a>
                         </div>
                         <div class="btn-group align-items-center" role="group">
@@ -106,7 +113,7 @@
                         {*<td class="align-middle">{$book->literature_form->name}</td>*}
                         <td class="align-middle fitted d-print-none">
                             <a n:href="Book:unassign literatureGroupsHasBooksId => $literatureGroupBook->id"
-                                    class="btn btn-sm btn-danger mr-2">
+                                    class="btn btn-sm btn-danger mr-2 book-confirm-remove">
                                 Odebrat knihu
                             </a>
                             <div class="btn-group align-items-center" role="group">
@@ -124,4 +131,15 @@
             </div>
         </div>
     {/foreach}
+{/block}
+
+{block scripts}
+    <script>
+        $('a.book-confirm-remove').click(function () {
+            return confirm("Opravdu chcete tuto knihu odebrat?");
+        });
+        $('a.group-confirm-remove').click(function () {
+            return confirm("Opravdu chcete tuto skupinu odstranit?");
+        });
+    </script>
 {/block}

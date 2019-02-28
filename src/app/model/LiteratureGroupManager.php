@@ -26,8 +26,9 @@ class LiteratureGroupManager
         return $this->getLiteratureGroups()->fetchPairs('id', 'title');
     }
 
-    public function reindexGroupsOrder($ids) {
-        for ($i = 0; $i < count($ids) ; $i++) {
+    public function reindexGroupsOrder($ids)
+    {
+        for ($i = 0; $i < count($ids); $i++) {
             $this->getLiteratureGroup($ids[$i])
                 ->update(['sort_order' => (count($ids) - 1) - $i]);
         }
@@ -40,6 +41,8 @@ class LiteratureGroupManager
 
     public function createLiteratureGroup($data)
     {
+        $data['sort_order'] = count($this->getLiteratureGroups()->where(['literature_set_id' => $data['literature_set_id']]));
+
         $this->getLiteratureGroups()->insert($data);
     }
 
@@ -48,8 +51,17 @@ class LiteratureGroupManager
         $this->getLiteratureGroup($id)->update($data);
     }
 
-    public function deleteLiteratureSet($id)
+    public function deleteLiteratureGroup($id)
     {
-        $this->getLiteratureGroup($id)->delete();
+        $literatureGroup = $this->getLiteratureGroup($id);
+        $literature_set_id = $literatureGroup->literature_set_id;
+        $literatureGroup->delete();
+
+        $ids = [];
+        foreach ($this->getLiteratureGroups()->where('literature_set_id', $literature_set_id) as $literatureGroupRow) {
+            $ids[] = $literatureGroupRow->id;
+        }
+
+        $this->reindexGroupsOrder($ids);
     }
 }

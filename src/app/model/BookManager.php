@@ -64,12 +64,24 @@ class BookManager
 
     public function assignToGroup($data)
     {
+        // Put highest in group
+        $data['sort_order'] = count($this->getLiteratureGroupsHasBooks()->where(['literature_groups_id' => $data['literature_groups_id']]));
+
         $this->getLiteratureGroupsHasBooks()
             ->insert($data);
     }
 
     public function unassignFromGroup($literatureGroupsHasBooksId)
     {
-        $this->getLiteratureGroupBook($literatureGroupsHasBooksId)->delete();
+        $literatureGroupBook = $this->getLiteratureGroupBook($literatureGroupsHasBooksId);
+        $literature_groups_id = $literatureGroupBook->literature_groups_id;
+        $literatureGroupBook->delete();
+
+        $ids = [];
+        foreach ($this->getLiteratureGroupsHasBooks()->where('literature_groups_id', $literature_groups_id) as $literatureGroupBookRow) {
+            $ids[] = $literatureGroupBookRow->id;
+        }
+
+        $this->reindexLiteratureGroupBooksOrder($ids);
     }
 }

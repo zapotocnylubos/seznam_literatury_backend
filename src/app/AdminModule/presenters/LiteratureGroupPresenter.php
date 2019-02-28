@@ -79,11 +79,12 @@ final class LiteratureGroupPresenter extends BasePresenter
         $this->redirect('LiteratureSet:detail', $currentLiteratureGroup->literature_set_id);
     }
 
-    public function handleDelete($id)
+    public function actionDelete($id)
     {
-        $this->literatureGroupManager->deleteLiteratureSet($id);
+        $literatureSetId = $this->literatureGroupManager->getLiteratureGroup($id)->literature_set_id;
+        $this->literatureGroupManager->deleteLiteratureGroup($id);
         $this->flashMessage('Literární skupina byla smazána.');
-        $this->redirect('this');
+        $this->redirect('LiteratureSet:detail', $literatureSetId);
     }
 
     public function createComponentLiteratureGroupCreateForm()
