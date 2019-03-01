@@ -1,3 +1,7 @@
+INSERT INTO literature_forms (id, name) VALUES (1, 'drama');
+INSERT INTO literature_forms (id, name) VALUES (2, 'poezie');
+INSERT INTO literature_forms (id, name) VALUES (3, 'próza');
+
 INSERT INTO authors (id, full_name) VALUES (2, 'Alexandr Sergejevič Puškin');
 INSERT INTO authors (id, full_name) VALUES (3, 'Alexandr Solženicyn');
 INSERT INTO authors (id, full_name) VALUES (4, 'Alois a Vilém Mrštíkové');
@@ -61,6 +65,7 @@ INSERT INTO authors (id, full_name) VALUES (60, 'Vladislav Vančura');
 INSERT INTO authors (id, full_name) VALUES (61, 'William Shakespeare');
 INSERT INTO authors (id, full_name) VALUES (62, 'William Styron');
 INSERT INTO authors (id, full_name) VALUES (63, 'Zdeněk Jirotka');
+
 INSERT INTO books (id, title, author_id, literature_form_id) VALUES (1, 'Proměny', 1, 2);
 INSERT INTO books (id, title, author_id, literature_form_id) VALUES (2, 'Hamlet', 61, 1);
 INSERT INTO books (id, title, author_id, literature_form_id) VALUES (3, 'Romeo a Julie', 61, 1);
@@ -128,13 +133,19 @@ INSERT INTO books (id, title, author_id, literature_form_id) VALUES (64, 'Jozova
 INSERT INTO books (id, title, author_id, literature_form_id) VALUES (65, 'Audience', 55, 1);
 INSERT INTO books (id, title, author_id, literature_form_id) VALUES (66, 'Občanský průkaz', 48, 3);
 INSERT INTO books (id, title, author_id, literature_form_id) VALUES (67, 'Údolí včel', 59, 3);
-INSERT INTO literature_forms (id, name) VALUES (1, 'drama');
-INSERT INTO literature_forms (id, name) VALUES (2, 'poezie');
-INSERT INTO literature_forms (id, name) VALUES (3, 'próza');
+
+INSERT INTO literature_sets (id, period, required_book_count, author_max_count, is_active) VALUES (1, '2018/2019', 20, 2, 1);
+
+INSERT INTO literature_sets_required_literature_forms (id, literature_sets_id, literature_forms_id, min_count) VALUES (1, 1, 1, 2);
+INSERT INTO literature_sets_required_literature_forms (id, literature_sets_id, literature_forms_id, min_count) VALUES (2, 1, 2, 2);
+INSERT INTO literature_sets_required_literature_forms (id, literature_sets_id, literature_forms_id, min_count) VALUES (3, 1, 3, 2);
+
 INSERT INTO literature_groups (id, literature_set_id, title, min_count, sort_order) VALUES (1, 1, 'Světová a česká literatura do konce 18. století', 2, 3);
 INSERT INTO literature_groups (id, literature_set_id, title, min_count, sort_order) VALUES (2, 1, 'Světová a česká literatura do konce 19. století', 3, 2);
 INSERT INTO literature_groups (id, literature_set_id, title, min_count, sort_order) VALUES (3, 1, 'Světová literatura 20. a 21. století', 4, 1);
 INSERT INTO literature_groups (id, literature_set_id, title, min_count, sort_order) VALUES (4, 1, 'Česká literatura 20. a 21. století', 5, 0);
+
+
 INSERT INTO literature_groups_has_books (id, literature_groups_id, books_id, sort_order) VALUES (1, 1, 1, 6);
 INSERT INTO literature_groups_has_books (id, literature_groups_id, books_id, sort_order) VALUES (2, 1, 2, 5);
 INSERT INTO literature_groups_has_books (id, literature_groups_id, books_id, sort_order) VALUES (3, 1, 3, 4);
@@ -203,7 +214,3 @@ INSERT INTO literature_groups_has_books (id, literature_groups_id, books_id, sor
 INSERT INTO literature_groups_has_books (id, literature_groups_id, books_id, sort_order) VALUES (66, 4, 66, 1);
 INSERT INTO literature_groups_has_books (id, literature_groups_id, books_id, sort_order) VALUES (67, 4, 67, 0);
 INSERT INTO literature_groups_has_books (id, literature_groups_id, books_id, sort_order) VALUES (68, 1, 3, 7);
-INSERT INTO literature_sets (id, period, required_book_count, author_max_count, is_active) VALUES (1, '2018/2019', 20, 2, 1);
-INSERT INTO literature_sets_required_literature_forms (id, literature_sets_id, literature_forms_id, min_count) VALUES (1, 1, 1, 2);
-INSERT INTO literature_sets_required_literature_forms (id, literature_sets_id, literature_forms_id, min_count) VALUES (2, 1, 2, 2);
-INSERT INTO literature_sets_required_literature_forms (id, literature_sets_id, literature_forms_id, min_count) VALUES (3, 1, 3, 2);
