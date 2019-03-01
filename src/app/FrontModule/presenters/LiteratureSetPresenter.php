@@ -20,6 +20,8 @@ final class LiteratureSetPresenter extends BasePresenter
     {
         $currentLiteratureSet = $this->literatureSetManager->getActiveLiteratureSet();
 
+        header("Access-Control-Allow-Origin: *");
+
         if (!$currentLiteratureSet) {
             $this->sendJson(null);
         }
@@ -27,6 +29,7 @@ final class LiteratureSetPresenter extends BasePresenter
         $literatureGroups = [];
         foreach ($currentLiteratureSet->related('literature_groups')->order('sort_order', 'DESC') as $literatureGroupRow) {
             $literatureGroup = [
+                'id' => $literatureGroupRow->id,
                 'title' => $literatureGroupRow->title,
                 'min_count' => $literatureGroupRow->min_count,
                 'books' => []
@@ -34,6 +37,7 @@ final class LiteratureSetPresenter extends BasePresenter
 
             foreach ($literatureGroupRow->related('books')->order('sort_order', 'DESC') as $literatureGroupsHasBooksRow) {
                 $book = [
+                    'literature_groups_has_books_id' => $literatureGroupsHasBooksRow->id,
                     'title' => $literatureGroupsHasBooksRow->book->title,
                     'author_id' => $literatureGroupsHasBooksRow->book->author_id,
                     'author' => $literatureGroupsHasBooksRow->book->author->full_name,
