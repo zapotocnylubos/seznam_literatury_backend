@@ -136,15 +136,10 @@ INSERT INTO books (id, title, author_id, literature_form_id) VALUES (67, 'Údol�
 
 INSERT INTO literature_sets (id, period, required_book_count, author_max_count, is_active) VALUES (1, '2018/2019', 20, 2, 1);
 
-INSERT INTO literature_sets_required_literature_forms (id, literature_sets_id, literature_forms_id, min_count) VALUES (1, 1, 1, 2);
-INSERT INTO literature_sets_required_literature_forms (id, literature_sets_id, literature_forms_id, min_count) VALUES (2, 1, 2, 2);
-INSERT INTO literature_sets_required_literature_forms (id, literature_sets_id, literature_forms_id, min_count) VALUES (3, 1, 3, 2);
-
 INSERT INTO literature_groups (id, literature_set_id, title, min_count, sort_order) VALUES (1, 1, 'Světová a česká literatura do konce 18. století', 2, 3);
 INSERT INTO literature_groups (id, literature_set_id, title, min_count, sort_order) VALUES (2, 1, 'Světová a česká literatura do konce 19. století', 3, 2);
 INSERT INTO literature_groups (id, literature_set_id, title, min_count, sort_order) VALUES (3, 1, 'Světová literatura 20. a 21. století', 4, 1);
 INSERT INTO literature_groups (id, literature_set_id, title, min_count, sort_order) VALUES (4, 1, 'Česká literatura 20. a 21. století', 5, 0);
-
 
 INSERT INTO literature_groups_has_books (id, literature_groups_id, books_id, sort_order) VALUES (1, 1, 1, 6);
 INSERT INTO literature_groups_has_books (id, literature_groups_id, books_id, sort_order) VALUES (2, 1, 2, 5);
@@ -213,4 +208,7 @@ INSERT INTO literature_groups_has_books (id, literature_groups_id, books_id, sor
 INSERT INTO literature_groups_has_books (id, literature_groups_id, books_id, sort_order) VALUES (65, 4, 65, 2);
 INSERT INTO literature_groups_has_books (id, literature_groups_id, books_id, sort_order) VALUES (66, 4, 66, 1);
 INSERT INTO literature_groups_has_books (id, literature_groups_id, books_id, sort_order) VALUES (67, 4, 67, 0);
-INSERT INTO literature_groups_has_books (id, literature_groups_id, books_id, sort_order) VALUES (68, 1, 3, 7);
+
+INSERT INTO literature_sets_required_literature_forms (id, literature_sets_id, literature_forms_id, min_count) VALUES (1, 1, 1, 2);
+INSERT INTO literature_sets_required_literature_forms (id, literature_sets_id, literature_forms_id, min_count) VALUES (2, 1, 2, 2);
+INSERT INTO literature_sets_required_literature_forms (id, literature_sets_id, literature_forms_id, min_count) VALUES (3, 1, 3, 2);
