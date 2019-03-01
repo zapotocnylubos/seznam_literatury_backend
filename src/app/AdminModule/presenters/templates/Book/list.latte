@@ -1,22 +1,24 @@
 {block content}
 
-<table class="table table-sm">
-    <thead>
-    <tr>
-        <th scope="col">Jméno knihy</th>
-        <th scope="col">Autora</th>
-        <th scope="col">Literární forma</th>
-        <th scope="col">Akce</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr n:foreach="$books as $book">
-        <td>{$book->title}</td>
-        <td>{$book->author->full_name}</td>
-        <td>{$book->literature_form->name}</td>
-        <td>
-            <a n:href="update $book->id">Upravit</a> | <a n:href="delete! $book->id">Smazat</a>
-        </td>
-    </tr>
-    </tbody>
-</table>
+<div class="table-responsive">
+    <table class="table table-sm">
+        <thead>
+        <tr>
+            <th scope="col">Jméno knihy</th>
+            <th scope="col">Autora</th>
+            <th scope="col">Literární forma</th>
+            <th scope="col">Akce</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr n:foreach="$books as $book">
+            <td>{$book->title}</td>
+            <td>{$book->author->full_name}</td>
+            <td>{$book->literature_form->name}</td>
+            <td>
+                <a n:href="update $book->id">Upravit</a> | <a n:href="delete! $book->id">Smazat</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
